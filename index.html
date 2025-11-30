@@ -3,184 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Bouquet for Laxmi</title>
-    
-    <style>
-        :root {
-            --rose-red: #a5132d; /* နက်ရှိုင်းသော အနီရောင် */
-            --rose-shadow: #7a0d21;
-            --wrapper-dark: #1a1a1a; 
-            --ribbon-color: #9e1b32;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f0f0f0; 
-            margin: 0;
-            font-family: 'Georgia', serif; 
-        }
-
-        /* --- Message Card Style --- */
-        .message-card {
-            position: absolute;
-            top: 50px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            z-index: 30;
-        }
-        .message-card h1 {
-            color: var(--rose-red);
-            font-size: 2.5em;
-            margin: 0 0 5px 0;
-        }
-        .message-card p {
-            color: #555;
-            font-style: italic;
-            margin: 0;
-        }
-
-        /* --- Main Container & Bouquet Base --- */
-        .bouquet-container {
-            position: relative;
-            width: 320px;
-            height: 550px;
-            transform: scale(1.1);
-            margin-top: 150px; /* Message Card နေရာပေးရန် */
-            filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.3)); 
-        }
-
-        /* ======================================= */
-        /* --- 1. Roses Cluster (နှင်းဆီအစုအဝေး - Static) --- */
-        /* ပန်းပွင့်ဖတ်အစုံလိုက်ကို CSS သီးသန့်ဖြင့် ပုံဖော်သည် */
-        /* ======================================= */
-        .roses-cluster {
-            position: absolute;
-            width: 320px;
-            height: 160px;
-            top: 50px;
-            left: 0;
-            z-index: 20;
-            border-radius: 50%;
-            overflow: hidden;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.7) inset; 
-        }
-
-        /* ပန်းပွင့်ပုံစံ (Static Rose Shape) */
-        .rose-shape {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #ff1c4c, var(--rose-red));
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5) inset;
-        }
-        
-        /* Inner petals for depth */
-        .rose-shape::before, .rose-shape::after {
-            content: '';
-            position: absolute;
-            width: 60%;
-            height: 60%;
-            background: var(--rose-shadow);
-            border-radius: 50%;
-            top: 20%;
-            left: 20%;
-            z-index: 21;
-        }
-        .rose-shape::after {
-            width: 30%;
-            height: 30%;
-            top: 35%;
-            left: 35%;
-            background: var(--rose-red);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) inset;
-            z-index: 22;
-        }
-
-        /* ======================================= */
-        /* --- 2. Conical Wrapper (ကတော့ပုံစက္ကူ) --- */
-        /* ======================================= */
-        .wrapper-cone {
-            position: absolute;
-            top: 150px; 
-            left: 40px;
-            width: 240px;
-            height: 400px;
-            z-index: 10;
-            overflow: hidden; 
-        }
-
-        .wrap-layer {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: var(--wrapper-dark);
-            transform-origin: 50% 0%; 
-            z-index: 10;
-        }
-
-        .layer-1 {
-            width: 450px; height: 450px; top: -50px; left: -100px;
-            transform: rotate(35deg) skewX(25deg);
-            opacity: 0.9;
-        }
-        .layer-2 {
-            width: 400px; height: 400px; top: 50px; left: -50px;
-            transform: rotate(-10deg) skewX(15deg);
-            opacity: 0.95; z-index: 11;
-        }
-        .layer-3 {
-            width: 350px; height: 350px; top: 150px; left: 0;
-            transform: rotate(5deg);
-            z-index: 12;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7) inset; 
-        }
-
-        /* ======================================= */
-        /* --- 3. Ribbon Tie (ဖဲကြိုး) --- */
-        /* ======================================= */
-        .ribbon-tie {
-            position: absolute;
-            width: 320px;
-            height: 25px;
-            background: var(--ribbon-color);
-            top: 300px; 
-            left: 0;
-            z-index: 25; 
-            transform: rotate(-3deg);
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
-        }
-    </style>
+    <title>A Rose Just For Laxmi</title>
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-    <div class="main-content">
-        <div class="message-card">
+    <div class="main-container">
+        <div class="message-box">
             <h1>Dear Laxmi,</h1>
-            <p>You are the reason my world is colorful.</p>
-            <p>- With Love</p>
+            <p>This rose bloomed just for you.</p>
+          
         </div>
 
-        <div class="bouquet-container">
+        <div class="rose-container">
+            <div class="rose"></div>
             
-            <div class="roses-cluster">
-                <div class="rose-shape"></div>
+            <div class="stem">
+                <div class="leaf"></div>
             </div>
-
-            <div class="wrapper-cone">
-                <div class="wrap-layer layer-1"></div>
-                <div class="wrap-layer layer-2"></div>
-                <div class="wrap-layer layer-3"></div>
-            </div>
-
-            <div class="ribbon-tie"></div>
         </div>
     </div>
+
+    <script> 
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const roseElement = document.querySelector('.rose');
+    const numPetals = 18;
+    const angleIncrement = 360 / numPetals;
+
+    // Petals များကို ဖန်တီးခြင်း
+    for (let i = 0; i < numPetals; i++) {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+
+        // Rotation angle တွက်ချက်ခြင်း
+        const rotation = i * angleIncrement;
+        
+        // CSS Variable ကို တန်ဖိုးပေးခြင်း
+        petal.style.setProperty('--rotation', `${rotation}deg`);
+
+        // Animation delay တွက်ချက်ခြင်း (တဖြည်းဖြည်း ပွင့်လာစေရန်)
+        const delay = i * 0.1; 
+        
+        // Animation ကို စတင်ခြင်း
+        petal.style.animation = `bloom 1.5s ease-out ${delay}s forwards`;
+        
+        // ပန်းပွင့်ဖတ်တွေကို နေရာချခြင်း
+        if (i % 2 === 0) {
+            petal.style.left = '35px'; 
+        } else {
+            petal.style.left = '5px';
+        }
+
+        // Petal ကို rose container ထဲ ထည့်သွင်းခြင်း
+        roseElement.appendChild(petal);
+    }
+});
+</script>
 </body>
 </html>
