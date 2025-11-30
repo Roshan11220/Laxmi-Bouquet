@@ -3,26 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Rose Just For Laxmi</title>
-    <link rel="stylesheet" href="style.css"> 
+    <title>Bouquet for Laxmi</title>
+    
+    <style>
+        :root {
+            --rose-red: #a5132d;
+            --rose-shadow: #7a0d21;
+            --wrapper-dark: #1a1a1a; 
+            --ribbon-color: #9e1b32;
+            --rose-size: 35px;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f7f7f7;
+            margin: 0;
+            font-family: 'Georgia', serif; 
+        }
+
+        /* --- Message Card Animation --- */
+        .message-card {
+            position: absolute;
+            top: 50px;
+            padding: 20px;
+            background: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            opacity: 0;
+            z-index: 30;
+            transform: translateY(-50px);
+            animation: slideIn 1s ease-out 3s forwards; 
+        }
+        .message-card h1 {
+            color: var(--rose-red);
+            font-size: 2.2em;
+        }
+        .message-card p {
+            color: #555;
+            font-style: italic;
+        }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Main Container & Bouquet Base --- */
+        .bouquet-container {
+            position: relative;
+            width: 320px;
+            height: 550px;
+            transform: scale(1.1);
+            filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.3)); 
+        }
+
+        /* ======================================= */
+        /* --- 1. Roses Cluster (နှင်းဆီအစုအဝေး) --- */
+        /* ======================================= */
+        .roses-cluster {
+            position: absolute;
+            width: 320px;
+            height: 160px;
+            top: 50px;
+            left: 0;
+            z-index: 20;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.7) inset; 
+        }
+
+        .rose {
+            position: absolute;
+            width: var(--rose-size);
+            height: var(--rose-size);
+            background: var(--rose-red);
+            border-radius: 50%; 
+            box-shadow: 0 0 5px var(--rose-shadow) inset; 
+            opacity: 0; 
+            transform: scale(0);
+            animation: bloom 1.5s ease-out forwards;
+        }
+
+        @keyframes bloom {
+            0% { opacity: 0; transform: scale(0); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* ======================================= */
+        /* --- 2. Conical Wrapper (ကတော့ပုံစက္ကူ) --- */
+        /* ======================================= */
+        .wrapper-cone {
+            position: absolute;
+            top: 150px; 
+            left: 40px;
+            width: 240px;
+            height: 400px;
+            z-index: 10;
+            overflow: hidden; 
+        }
+
+        .wrap-layer {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--wrapper-dark);
+            transform-origin: 50% 0%; 
+            z-index: 10;
+        }
+
+        .layer-1 {
+            width: 450px; height: 450px; top: -50px; left: -100px;
+            transform: rotate(35deg) skewX(25deg);
+            opacity: 0.9;
+        }
+        .layer-2 {
+            width: 400px; height: 400px; top: 50px; left: -50px;
+            transform: rotate(-10deg) skewX(15deg);
+            opacity: 0.95; z-index: 11;
+        }
+        .layer-3 {
+            width: 350px; height: 350px; top: 150px; left: 0;
+            transform: rotate(5deg);
+            z-index: 12;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7) inset; 
+        }
+
+        /* ======================================= */
+        /* --- 3. Ribbon Tie (ဖဲကြိုး) --- */
+        /* ======================================= */
+        .ribbon-tie {
+            position: absolute;
+            width: 320px;
+            height: 25px;
+            background: var(--ribbon-color);
+            top: 300px; 
+            left: 0;
+            z-index: 25; 
+            transform: rotate(-3deg);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+        }
+    </style>
 </head>
 <body>
-    <div class="main-container">
-        <div class="message-box">
+    <div class="main-content">
+        <div class="message-card">
             <h1>Dear Laxmi,</h1>
-            <p>This rose bloomed just for you.</p>
-          
+            <p>A bouquet to celebrate your beauty.</p>
+            <p>- With Love</p>
         </div>
 
-        <div class="rose-container">
-            <div class="rose"></div>
+        <div class="bouquet-container">
             
-            <div class="stem">
-                <div class="leaf"></div>
+            <div class="roses-cluster">
+                </div>
+
+            <div class="wrapper-cone">
+                <div class="wrap-layer layer-1"></div>
+                <div class="wrap-layer layer-2"></div>
+                <div class="wrap-layer layer-3"></div>
             </div>
+
+            <div class="ribbon-tie"></div>
         </div>
     </div>
 
-    <script src="script.js"></script> 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rosesCluster = document.querySelector('.roses-cluster');
+            const numRoses = 30; // နှင်းဆီ ၃၀ ပွင့် ဖန်တီးခြင်း
+            const clusterWidth = 320;
+            const clusterHeight = 160;
+
+            for (let i = 0; i < numRoses; i++) {
+                const rose = document.createElement('div');
+                rose.classList.add('rose');
+                
+                // --- 1. Random Position (ဖရိုဖရဲ နေရာချခြင်း) ---
+                const randomX = Math.random() * (clusterWidth - 40); 
+                const randomY = Math.random() * (clusterHeight - 40);
+
+                rose.style.left = `${randomX}px`;
+                rose.style.top = `${randomY}px`;
+                
+                // --- 2. Random Size ---
+                const randomScale = 0.8 + Math.random() * 0.4; // 0.8x ကနေ 1.2x အထိ
+                rose.style.transform = `scale(${randomScale})`;
+
+                // --- 3. Sequential Bloom (တဖြည်းဖြည်း ပွင့်လာစေရန်) ---
+                // 0.08s ခြားပြီး ပွင့်စေခြင်း
+                const delay = i * 0.08 + Math.random() * 0.3; 
+                rose.style.animationDelay = `${delay}s`;
+
+                // --- 4. Depth (အနီး/အဝေး) ---
+                rose.style.zIndex = Math.round(randomY) + 20; 
+
+                rosesCluster.appendChild(rose);
+            }
+        });
+    </script> 
 </body>
 </html>
