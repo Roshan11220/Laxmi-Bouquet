@@ -1,0 +1,131 @@
+:root {
+    --rose-color-initial: #ff527b; /* Pink */
+    --rose-color-hover: #c70039; /* Rich Red */
+    --stem-color: #38761d;
+    --stem-color-hover: #2b5c17;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7f7f7;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Georgia', serif; /* Laxmi အတွက် ပိုမိုနူးညံ့သော Font */
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- Message Styling --- */
+.message-box {
+    text-align: center;
+    margin-bottom: 40px;
+    opacity: 0;
+    /* နှင်းဆီပွင့်ပြီး ၂ စက္ကန့်အကြာမှာ ပေါ်လာစေခြင်း */
+    animation: fadeIn 2s ease-out 4s forwards; 
+}
+.message-box h1 {
+    color: var(--rose-color-hover);
+    font-size: 2.5em;
+    margin-bottom: 5px;
+}
+.message-box p {
+    color: #555;
+    font-style: italic;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* --- Rose Container and Base Styles --- */
+.rose-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+}
+
+.rose {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    /* Gentle pulsing after bloom */
+    animation: pulse 4s ease-in-out 3s infinite alternate; 
+    transition: transform 0.5s ease;
+}
+
+/* --- Petal Styling and Animation --- */
+.petal {
+    position: absolute; 
+    width: 60px;
+    height: 100px;
+    background: var(--rose-color-initial); 
+    border-radius: 50% 50% 10% 10%;
+    transform-origin: bottom center; 
+    opacity: 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.5s ease, transform 0.5s ease;
+}
+
+/* Blooming Keyframes: Grows and rotates into position */
+@keyframes bloom {
+    0% { transform: translateY(0) rotate(0deg) scale(0); opacity: 0; }
+    100% { transform: translateY(-50px) rotate(var(--rotation)) scale(1); opacity: 1; }
+}
+
+/* Pulsing Keyframes */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+/* --- Hover Effects --- */
+.rose-container:hover .petal {
+    background: var(--rose-color-hover); 
+}
+
+/* --- Stem and Leaf Styling (ယခင်ကုဒ်အတိုင်း) --- */
+.stem {
+    width: 8px;
+    height: 150px;
+    background: var(--stem-color); 
+    border-radius: 0 0 5px 5px;
+    margin-top: -20px; 
+    position: relative;
+    z-index: -1;
+    transition: background 0.5s ease;
+}
+
+.leaf {
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    background: var(--stem-color);
+    border-radius: 0 100% 0 100%;
+    top: 50px;
+    left: -35px;
+    transform: rotate(-20deg);
+    transition: background 0.5s ease;
+}
+
+.leaf::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--stem-color);
+    border-radius: 0 100% 0 100%;
+    transform: scaleX(-1); 
+    left: 70px;
+    top: -5px;
+    transition: background 0.5s ease;
+}
