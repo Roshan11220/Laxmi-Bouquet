@@ -37,7 +37,8 @@
             opacity: 0;
             z-index: 30;
             transform: translateY(-50px);
-            animation: slideIn 1s ease-out 3s forwards; 
+            /* စာပေါ်ချိန်ကို ၅ စက္ကန့်အထိ တိုးမြှင့်လိုက်သည် */
+            animation: slideIn 1s ease-out 5s forwards; 
         }
         .message-card h1 {
             color: var(--rose-red);
@@ -84,13 +85,14 @@
             border-radius: 50%; 
             box-shadow: 0 0 5px var(--rose-shadow) inset; 
             opacity: 0; 
-            transform: scale(0);
+            /* JS ကနေ scale(0) ကို တိုက်ရိုက်ပေးထားတာကြောင့် ဤနေရာတွင် ဖယ်ရှားသည် */
             animation: bloom 1.5s ease-out forwards;
         }
 
+        /* Animation Keyframes ကို ပိုမိုရိုးရှင်းအောင် ပြောင်းလဲလိုက်သည် */
         @keyframes bloom {
             0% { opacity: 0; transform: scale(0); }
-            100% { opacity: 1; transform: scale(1); }
+            100% { opacity: 1; transform: scale(var(--final-scale)); } /* JS ကနေ scale ကို ယူသုံးမည် */
         }
 
         /* ======================================= */
@@ -174,7 +176,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const rosesCluster = document.querySelector('.roses-cluster');
-            const numRoses = 30; // နှင်းဆီ ၃၀ ပွင့် ဖန်တီးခြင်း
+            const numRoses = 30; 
             const clusterWidth = 320;
             const clusterHeight = 160;
 
@@ -182,23 +184,27 @@
                 const rose = document.createElement('div');
                 rose.classList.add('rose');
                 
-                // --- 1. Random Position (ဖရိုဖရဲ နေရာချခြင်း) ---
+                // --- 1. Random Position ---
                 const randomX = Math.random() * (clusterWidth - 40); 
                 const randomY = Math.random() * (clusterHeight - 40);
 
                 rose.style.left = `${randomX}px`;
                 rose.style.top = `${randomY}px`;
                 
-                // --- 2. Random Size ---
+                // --- 2. Random Scale ---
                 const randomScale = 0.8 + Math.random() * 0.4; // 0.8x ကနေ 1.2x အထိ
-                rose.style.transform = `scale(${randomScale})`;
+                
+                // Final Scale ကို CSS Variable အဖြစ် ထည့်သွင်းလိုက်သည်
+                rose.style.setProperty('--final-scale', randomScale);
+                
+                // Initial State ကို JS ကနေ ချက်ချင်း သုည scale ပေးလိုက်သည်
+                rose.style.transform = `scale(0)`;
 
-                // --- 3. Sequential Bloom (တဖြည်းဖြည်း ပွင့်လာစေရန်) ---
-                // 0.08s ခြားပြီး ပွင့်စေခြင်း
-                const delay = i * 0.08 + Math.random() * 0.3; 
+                // --- 3. Sequential Bloom ---
+                const delay = i * 0.1 + Math.random() * 0.5; // delay ကို ပိုကြာအောင် ချိန်ညှိလိုက်သည်
                 rose.style.animationDelay = `${delay}s`;
 
-                // --- 4. Depth (အနီး/အဝေး) ---
+                // --- 4. Depth ---
                 rose.style.zIndex = Math.round(randomY) + 20; 
 
                 rosesCluster.appendChild(rose);
